@@ -1,0 +1,34 @@
+﻿
+<div class="row">
+    <div class="col-md-7">
+        <h2>Home</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-horizontal col-md-2">
+        <hr />
+        <div ng-repeat="value in home.values">
+            {{value}}
+        </div>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="">
+            <button class="btn btn-primary col-md-12" ng-click="home.getValues()">Get Values</button>
+        </div>
+    </div>
+</div><br />
+<div class="row">
+    <div class="col-md-2">
+        <div class="">
+            <hr />
+            {{home.value}}
+            <hr />
+            <button class="btn btn-primary col-md-12" ng-click="home.getValue(1)">Get Value</button>
+        </div>
+    </div>
+</div>

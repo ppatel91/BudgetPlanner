@@ -37,8 +37,9 @@ namespace BudgetPlanner
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
+                RefreshTokenProvider = new RefreshTokenProvider(),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(30),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };

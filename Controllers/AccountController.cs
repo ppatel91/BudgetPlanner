@@ -13,10 +13,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using BudgetPlanner.Models;
 using BudgetPlanner.Providers;
 using BudgetPlanner.Results;
+using BudgetPlanner.Models;
+using BudgetPlanner;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace BudgetPlanner.Controllers
 {
@@ -24,8 +26,6 @@ namespace BudgetPlanner.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
@@ -128,7 +128,7 @@ namespace BudgetPlanner.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -261,13 +261,13 @@ namespace BudgetPlanner.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user, UserManager);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -326,14 +326,21 @@ namespace BudgetPlanner.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
+           
+            ApplicationDbContext db = new ApplicationDbContext();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-           var household= db.Database.SqlQuery<Household>("EXEC CreateHousehold @name", new SqlParameter("name", model.HouseholdName));
-
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, HouseHoldId = household.FirstAsync().Result.Id   };
+            var user = new ApplicationUser()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.Username,
+                Email = model.Email
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -342,6 +349,24 @@ namespace BudgetPlanner.Controllers
                 return GetErrorResult(result);
             }
 
+            if (model.CreateHousehold)
+            {
+
+                var household = db.Database.SqlQuery<Household>("EXEC CreateHousehold @name, @userName", 
+                    new SqlParameter("name", model.FirstName + " " + model.LastName + "'s Household"),
+                    new SqlParameter("userName", User.Identity.Name)
+                    );
+
+            }
+            else
+            {
+                //join household
+                //get the join invitation for the user's email, then the household id
+                var invitation = db.Database.SqlQuery<Invitation>("EXEC GetUserInvitation @email, @inviteCode", 
+                    new SqlParameter("email", model.Email),
+                    new SqlParameter("inviteCode", model.InviteCode)
+                    );
+            }
             return Ok();
         }
 
@@ -373,7 +398,7 @@ namespace BudgetPlanner.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

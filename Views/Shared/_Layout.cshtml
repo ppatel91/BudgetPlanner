@@ -1,23 +1,68 @@
 ﻿<!DOCTYPE html>
-<html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <script type="text/javascript">
-        var appInsights=window.appInsights||function(config){
-            function r(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s=u.createElement(o),i,f;for(s.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace"];i.length;)r("track"+i.pop());return r("setAuthenticatedUserContext"),r("clearAuthenticatedUserContext"),config.disableExceptionTracking||(i="onerror",r("_"+i),f=e[i],e[i]=function(config,r,u,e,o){var s=f&&f(config,r,u,e,o);return s!==!0&&t["_"+i](config,r,u,e,o),s}),t
-        }({
-            instrumentationKey:"bb8f2645-e10f-47d3-b858-acddbdd02a81"
-        });
-        
-        window.appInsights=appInsights;
-        appInsights.trackPageView();
-    </script>
+    
+
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/AdminTemplate/Admincss/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/animate.min.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/custom.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/normalize.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Adminjs/sidebar/component.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/nprogress.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/icheck/flat/_all.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/icheck/flat/green.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/progressbar/bootstrap-progressbar-3.3.0.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/select/select2.min.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/switchery/switchery.min.css" rel="stylesheet" />
+    <link href="~/AdminTemplate/Admincss/maps/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
+    <script src="~/AdminTemplate/Adminjs/jquery.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/chartjs/chart.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/bootstrap.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/custom.js"></script>
+    <script src="~/AdminTemplate/Adminjs/moment.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/textarea/autosize.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/easypie/jquery.easypiechart.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/sidebar/modernizr.custom.js"></script>
+    <script src="~/AdminTemplate/Adminjs/sidebar/sidebarEffects.js"></script>
+    <script src="~/AdminTemplate/Adminjs/sidebar/classie.js"></script>
+    <script src="~/AdminTemplate/Adminjs/icheck/icheck.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/easypie/jquery.easypiechart.min.js"></script>
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <script src="~/AdminTemplate/Adminjs/nprogress.js"></script>
+
+    <!--data tables-->
+    <script src="~/AdminTemplate/Adminjs/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/AdminTemplate/Adminjs/datatables/js/jquery.js"></script>
+    <link href="~/AdminTemplate/Admincss/datatables/css/jquery.dataTables_themeroller.css" rel="stylesheet" />
+
+    <!--AUTHENTICATION-->
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/angular-local-storage.min.js"></script>
+    @*<script src="~/Scripts/angular-ui/ui-bootstrap.js"></script>*@
+            @* load the angular app *@
+    <script src="~/NgApps/app.js"></script>\
+
+    @* load the angular services *@
+    <script src="~/NgApps/Services/authSvc.js"></script>
+    <script src="~/NgApps/Services/authIntercepterSvc.js"></script>
+
+
+    @* load the angular controllers *@
+    <script src="~/NgApps/Controllers/loginCtrl.js"></script>
+    <script src="~/NgApps/Controllers/registerCtrl.js"></script>
+    <script src="~/NgApps/Controllers/menuCtrl.js"></script>
+    <script src="~/NgApps/Controllers/homeCtrl.js"></script>
+
 </head>
-<body>
+<body style="background-image: url('../../Content/Background.jpg'); ">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -32,20 +77,51 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Dashboard", "Dashboard", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Accounts", "Accounts", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Household", "Household", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Budgets", "Budgets", "Home", new { area = "" }, null)</li>
+
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+
+
+
+
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Budgeteer</p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+
+    <script src="~/AdminTemplate/Adminjs/jquery.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/chartjs/chart.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/bootstrap.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/custom.js"></script>
+    <script src="~/AdminTemplate/Adminjs/moment.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/textarea/autosize.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/easypie/jquery.easypiechart.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/sidebar/modernizr.custom.js"></script>
+    <script src="~/AdminTemplate/Adminjs/sidebar/sidebarEffects.js"></script>
+    <script src="~/AdminTemplate/Adminjs/sidebar/classie.js"></script>
+    <script src="~/AdminTemplate/Adminjs/icheck/icheck.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="~/AdminTemplate/Adminjs/easypie/jquery.easypiechart.min.js"></script>
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <script src="~/AdminTemplate/Adminjs/nprogress.js"></script>
+
+    <!--data tables-->
+    <script src="~/AdminTemplate/Adminjs/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/AdminTemplate/Adminjs/datatables/js/jquery.js"></script>
+    <link href="~/AdminTemplate/Admincss/datatables/css/jquery.dataTables_themeroller.css" rel="stylesheet" />
+    
     @RenderSection("scripts", required: false)
 </body>
-</html>
+

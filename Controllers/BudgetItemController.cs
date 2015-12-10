@@ -12,8 +12,9 @@ namespace BudgetPlanner.Controllers
     public class BudgetItemController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        
         /// <summary>
-        /// 
+        /// Get all budget items in a budget 
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -29,7 +30,7 @@ namespace BudgetPlanner.Controllers
 
 
         /// <summary>
-        /// 
+        /// Get budget using the budget Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -44,7 +45,7 @@ namespace BudgetPlanner.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Create the item in a budget
         /// </summary>
         /// <param name="b"></param>
         [HttpGet]
@@ -61,7 +62,7 @@ namespace BudgetPlanner.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Edit the item in a budget
         /// </summary>
         /// <param name="b"></param>
         [HttpGet]
@@ -77,7 +78,7 @@ namespace BudgetPlanner.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Delete the item in a budget
         /// </summary>
         /// <param name="id"></param>
         [HttpPost]

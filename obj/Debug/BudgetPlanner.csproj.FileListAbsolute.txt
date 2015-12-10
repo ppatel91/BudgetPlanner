@@ -74,3 +74,4 @@ c:\users\p2k\documents\visual studio 2013\Projects\BudgetPlanner\BudgetPlanner\b
 c:\users\p2k\documents\visual studio 2013\Projects\BudgetPlanner\BudgetPlanner\obj\Debug\BudgetPlanner.csprojResolveAssemblyReference.cache
 c:\users\p2k\documents\visual studio 2013\Projects\BudgetPlanner\BudgetPlanner\obj\Debug\BudgetPlanner.dll
 c:\users\p2k\documents\visual studio 2013\Projects\BudgetPlanner\BudgetPlanner\obj\Debug\BudgetPlanner.pdb
+C:\Users\P2K\Documents\Visual Studio 2013\Projects\BudgetPlanner\BudgetPlanner\bin\BudgetPlanner.XML

@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using BudgetPlanner.Models;
+using Newtonsoft.Json;
 
 namespace BudgetPlanner.Providers
 {
@@ -44,10 +45,23 @@ namespace BudgetPlanner.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            AuthenticationProperties properties = CreateProperties(user, userManager);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
+        }
+
+        public override async Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
+        {
+            // Change auth ticket for refresh token requests
+            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+
+            ApplicationUser user = await userManager.FindByNameAsync(context.Ticket.Identity.Name);
+
+            var newIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
+
+            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
+            context.Validated(newTicket);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -62,12 +76,8 @@ namespace BudgetPlanner.Providers
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            // Resource owner password credentials does not provide a client ID.
-            if (context.ClientId == null)
-            {
-                context.Validated();
-            }
 
+            context.Validated();
             return Task.FromResult<object>(null);
         }
 
@@ -86,11 +96,16 @@ namespace BudgetPlanner.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(ApplicationUser user, ApplicationUserManager manager)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                { "userName", user.UserName },
+                { "firstName", user.FirstName ?? "" },
+                { "lastName", user.LastName ?? "" },
+                { "email", user.Email },
+                { "household", user.Household.Name },
+                { "roles", JsonConvert.SerializeObject( manager.GetRoles(user.Id) )}
             };
             return new AuthenticationProperties(data);
         }

@@ -14,5 +14,33 @@ namespace BudgetPlanner.Controllers
 
             return View();
         }
+
+        public ActionResult Dashboard()
+        {
+            ViewBag.Title = "Dashboard";
+
+            return View();
+        }
+
+        public ActionResult Household()
+        {
+            ViewBag.Title = "Household";
+
+            return View();
+        }
+
+        public ActionResult Accounts()
+        {
+            ViewBag.Title = "Account";
+
+            return View();
+        }
+
+        public ActionResult Budgets()
+        {
+            ViewBag.Title = "Budget";
+
+            return View();
+        }
     }
 }

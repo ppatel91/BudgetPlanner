@@ -9,6 +9,7 @@ namespace BudgetPlanner.Models
     {
         public int Id { get; set; }
         public int HouseholdId { get; set; }
+        public string InviteCode { get; set; }
         public string FromEmail { get; set; }
         public string ToEmail { get; set; }
 

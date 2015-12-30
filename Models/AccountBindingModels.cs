@@ -46,12 +46,12 @@ namespace BudgetPlanner.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
-        [Display(Name = "Create Household")]
-        public bool CreateHousehold { get; set; }
+        //[Required]
+        //[Display(Name = "Create Household")]
+        //public bool CreateHousehold { get; set; }
 
-        [Display(Name = "Invite Code")]
-        public string InviteCode { get; set; }
+        //[Display(Name = "Invite Code")]
+        //public string InviteCode { get; set; }
 
         [Required]
         [Display(Name = "Email")]
@@ -68,8 +68,6 @@ namespace BudgetPlanner.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name = "Household Name")]
-        public string HouseholdName { get; set; }
     }
 
     public class RegisterExternalBindingModel

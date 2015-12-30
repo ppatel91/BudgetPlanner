@@ -1106,7 +1106,7 @@ h2 {
 }
 
 .x_content {
-    display:none;
+    
     padding: 0 5px 6px;
     position: relative;
     width: 100%;
@@ -6003,7 +6003,7 @@ header{width:100%;}
   display: inline-block;
   width: 20px;
   height: 20px;
-  background-image: url("../../assets/img/icons.png");
+  /*background-image: url("../../assets/img/icons.png");*/
   vertical-align: middle;
 }
 

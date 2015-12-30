@@ -9,12 +9,13 @@ using System.Web.Http;
 
 namespace BudgetPlanner.Controllers
 {
+    //[Authorize]
     public class TransactionController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// Get all Transactions in an Account
+        /// Get all Transactions by AccountID
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -22,9 +23,13 @@ namespace BudgetPlanner.Controllers
         [ActionName("All")]
         public IEnumerable<Transaction> AllTransactions(int Id)
         {
+            string username = Request.Headers.GetValues("Username").First();
+            string household = Request.Headers.GetValues("Household").First();
+            int householdId = Int32.Parse(household);
+
             var tResult = db.Database.SqlQuery<Transaction>("EXEC GetTransactionByAccount @accountId",
                 new SqlParameter("accountId", Id)
-                );
+                ).ToList();
             return tResult;
         }
 

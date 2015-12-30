@@ -1,28 +1,21 @@
 ﻿'use strict';
-angular.module('app').controller('registerCtrl', ['authSvc', '$timeout', '$state', function (authSvc, $timeout, $state) {
+app.controller('registerCtrl', ['authSvc', '$timeout', '$state', function (authSvc, $timeout, $state) {
+    var self = this;
+    self.savedSuccessfully = false;
+    self.message = "Register a new account";
+    self.isError = false;
 
-    this.savedSuccessfully = false;
-    this.message = "Register a new account";
-    this.isError = false;
-
-    this.model = {
-        Username: "",
-        FirstName: "",
-        LastName: "",
-        Email: "",
-        Password: "",
-        ConfirmPassword: "",
-        CreateHousehold: true
+    self.model = {
+        Name: "",
+        Balance: "",
+        HouseholdId: "",
+        Archived: ""
     };
 
-    this.register = function () {
-
-        var scope = this;
-
-        authSvc.register(this.model).then(function (response) {
-
-            this.savedSuccessfully = true;
-            scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
+    self.register = function () {
+        authSvc.register(self.model).then(function (response) {
+            self.savedSuccessfully = true;
+            self.message = "User has been registered successfully, you are being redirected";
             messageDelay(2, redirectCallback);
         },
             function (response) {
@@ -32,22 +25,22 @@ angular.module('app').controller('registerCtrl', ['authSvc', '$timeout', '$state
                         errors.push(response.data.ModelState[key][i]);
                     }
                 }
-                scope.message = "Failed to register user due to:" + errors.join(' ');
-                scope.isError = true;
-                messageDelay(2, registerErrorCallback, scope);
+                self.message = "Failed to register user due to:" + errors.join(' ');
+                self.isError = true;
+                messageDelay(2, registerErrorCallback, self);
             });
     };
 
-    var messageDelay = function (interval, callBack, scope) {
+    var messageDelay = function (interval, callBack, self) {
         var timer = $timeout(function () {
             $timeout.cancel(timer);
-            callBack(scope);
+            callBack(self);
         }, 1000 * interval);
     };
 
-    var registerErrorCallback = function (scope) {
-        scope.message = "Register a new account";
-        scope.isError = false;
+    var registerErrorCallback = function (self) {
+        self.message = "Register a new account";
+        self.isError = false;
     };
 
     var redirectCallback = function () {

@@ -1,6 +1,6 @@
 ﻿'use strict';
-angular.module('app')
-    .factory('authInterceptorSvc', ['$q', '$injector', '$location', 'localStorageService', function ($q, $injector, $location, localStorageService) {
+
+    app.factory('authInterceptorSvc', ['$q', '$injector', '$location', 'localStorageService', function ($q, $injector, $location, localStorageService) {
 
     var authInterceptorServiceFactory = {};
 
@@ -14,14 +14,14 @@ angular.module('app')
         }
 
         return config;
-    }
+    };
 
     var _responseError = function (rejection) {
         var authService = $injector.get('authSvc');
         var authData = localStorageService.get('authorizationData');
         var $http = $injector.get('$http');
 
-        switch(rejection.status) {
+        switch (rejection.status) {
             case 401:
                 if (authData) {
                     return authService.refresh().then(function (response) {
@@ -35,14 +35,19 @@ angular.module('app')
                     authService.logout();
                     $location.path('/login');
                 }
+                break;
             case 403:
                 //Unauthorized access
                 authService.logout();
                 $location.path('/login');
                 break;
+            case 500:
+                authService.logout();
+                $location.path('/login');
+                break;
         }
         return $q.reject(rejection);
-    }
+    };
 
     authInterceptorServiceFactory.request = _request;
     authInterceptorServiceFactory.responseError = _responseError;

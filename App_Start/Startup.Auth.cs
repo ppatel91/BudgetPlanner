@@ -39,13 +39,14 @@ namespace BudgetPlanner
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 RefreshTokenProvider = new RefreshTokenProvider(),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
+            //app.UseOAuthAuthorizationServer(OAuthOptions);
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

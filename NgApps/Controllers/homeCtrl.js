@@ -1,47 +1,28 @@
 ﻿'use strict';
-angular.module('app')
-    //.factory('homeSvc', ['$http', 'ngAuthSettings', function ($http, ngAuthSettings) {
 
-    //    var serviceBase = ngAuthSettings.apiServiceBaseUri;
-    //    var homeServiceFactory = {};
-
-    //    var getValues = function () {
-    //        return $http.get(serviceBase + '/api/values').then(function (response) {
-    //            return response.data;
-    //        });
-    //    };
-
-    //    var getValue = function (id) {
-    //        return $http.get(serviceBase + '/api/values/' + id).then(function (response) {
-    //            return response.data;
-    //        });
-    //    };
-
-    //    return homeServiceFactory;
-    //}])
-//.controller('homeCtrl', ['homeSvc', '$state', function (homeSvc, $state) {
-.controller('homeCtrl', ['$http', '$state', 'authSvc', function ($http, $state, authSvc) {
+app.controller('homeCtrl', ['$http', '$state', 'authSvc', function ($http, $state, authSvc) {
 
     var self = this;
     self.values = [];
     self.value = '';
+    self.message = '';
 
-    //self.getValues = function () {
-    //    return $http.get(serviceBase + '/api/values').then(function (response) {
-    //        self.values = response.data;
-    //    });
-    //};
 
     self.getValues = function () {
-        $http({
-            method: 'GET',
-            url: authSvc.serviceBase + '/api/values',
-            headers: {  // load this header info for the first request and it applies to all others in the controller
-                'Authorization': authSvc.authentication.userName + '/token:' + authSvc.authentication.token
-            }
-        }).then(function (response) {
-            self.values = response.data;
-        });
+        if (authSvc.household) {
+            $http({
+                method: 'GET',
+                url: authSvc.serviceBase + '/api/values',
+                headers: {  // load this header info for the first request and it applies to all others in the controller
+                    'Authorization': authSvc.authentication.userName + '/token:' + authSvc.authentication.token
+                }
+            }).then(function (response) {
+                self.values = response.data;
+            });
+        } else {
+
+            self.message = "You may not post data to the application while in the demo household. Please Create a household by selecting 'Create Household'."
+        }
     };
 
     self.getValue = function (id) {

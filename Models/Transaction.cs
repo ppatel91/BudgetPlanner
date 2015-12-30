@@ -17,7 +17,7 @@ namespace BudgetPlanner.Models
         public DateTimeOffset? Date { get; set; }
 
         public string Description { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual Account Account { get; set; }
         public virtual Category Category { get; set; }

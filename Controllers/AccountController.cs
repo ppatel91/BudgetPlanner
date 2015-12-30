@@ -321,6 +321,15 @@ namespace BudgetPlanner.Controllers
             return logins;
         }
 
+        [AllowAnonymous]
+        [Route("Demo")]
+        public bool HasHousehold()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+           return  !db.Database.SqlQuery<bool>("EXEC GetDemoHousehold @username",
+                new SqlParameter("username", User.Identity.Name)).FirstAsync().Result;
+        }
+
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -339,7 +348,10 @@ namespace BudgetPlanner.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 UserName = model.Username,
-                Email = model.Email
+                Email = model.Email,
+                //assign new users to demo household- they must create a new household or join another to post
+               // HouseHoldId = db.Database.SqlQuery<int>("EXEC GetDemoHousehold").FirstAsync().Result
+               HouseHoldId = 1
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -349,24 +361,6 @@ namespace BudgetPlanner.Controllers
                 return GetErrorResult(result);
             }
 
-            if (model.CreateHousehold)
-            {
-
-                var household = db.Database.SqlQuery<Household>("EXEC CreateHousehold @name, @userName", 
-                    new SqlParameter("name", model.FirstName + " " + model.LastName + "'s Household"),
-                    new SqlParameter("userName", User.Identity.Name)
-                    );
-
-            }
-            else
-            {
-                //join household
-                //get the join invitation for the user's email, then the household id
-                var invitation = db.Database.SqlQuery<Invitation>("EXEC GetUserInvitation @email, @inviteCode", 
-                    new SqlParameter("email", model.Email),
-                    new SqlParameter("inviteCode", model.InviteCode)
-                    );
-            }
             return Ok();
         }
 

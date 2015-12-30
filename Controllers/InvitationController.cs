@@ -9,6 +9,7 @@ using BudgetPlanner.Models;
 
 namespace BudgetPlanner.Controllers
 {
+    //[Authorize]
     public class InvitationController : ApiController
     {
        private ApplicationDbContext db = new ApplicationDbContext();

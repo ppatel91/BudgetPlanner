@@ -481,38 +481,38 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:BudgetPlanner.Controllers.AccountingController.Get">
+        <member name="M:BudgetPlanner.Controllers.AccountsController.Get">
             <summary>
             Get account information by HouseholdID
             </summary>
             <returns></returns>
         </member>
-        <member name="M:BudgetPlanner.Controllers.AccountingController.Get(System.Int32)">
+        <member name="M:BudgetPlanner.Controllers.AccountsController.Get(System.Int32)">
             <summary>
             Get account by account Id
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:BudgetPlanner.Controllers.AccountingController.CreateAccount(BudgetPlanner.Models.Account)">
+        <member name="M:BudgetPlanner.Controllers.AccountsController.CreateAccount(BudgetPlanner.Models.Account)">
             <summary>
             Create Account and give it a name, and balance
             </summary>
             <param name="a"></param>
         </member>
-        <member name="M:BudgetPlanner.Controllers.AccountingController.EditAccount(BudgetPlanner.Models.Account)">
+        <member name="M:BudgetPlanner.Controllers.AccountsController.EditAccount(BudgetPlanner.Models.Account)">
             <summary>
             Edit Account information
             </summary>
             <param name="a"></param>
         </member>
-        <member name="M:BudgetPlanner.Controllers.AccountingController.ArchiveAccount(BudgetPlanner.Models.Account)">
+        <member name="M:BudgetPlanner.Controllers.AccountsController.ArchiveAccount(BudgetPlanner.Models.Account)">
             <summary>
             Archive Account Information
             </summary>
             <param name="a"></param>
         </member>
-        <member name="M:BudgetPlanner.Controllers.AccountingController.UnarchiveAccount(BudgetPlanner.Models.Account)">
+        <member name="M:BudgetPlanner.Controllers.AccountsController.UnarchiveAccount(BudgetPlanner.Models.Account)">
             <summary>
             Unarchive account information
             </summary>
@@ -575,7 +575,7 @@
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:BudgetPlanner.Controllers.CategoryController.AllCategory(System.String)">
+        <member name="M:BudgetPlanner.Controllers.CategoryController.AllCategory(System.Int32)">
             <summary>
             Get all categories in a household
             </summary>
@@ -589,13 +589,13 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
-        <member name="M:BudgetPlanner.Controllers.CategoryController.CreateTransaction(BudgetPlanner.Models.Category)">
+        <member name="M:BudgetPlanner.Controllers.CategoryController.CreateCategory(BudgetPlanner.Models.Category)">
             <summary>
             Create a Category 
             </summary>
             <param name="t"></param>
         </member>
-        <member name="M:BudgetPlanner.Controllers.CategoryController.EditTransaction(BudgetPlanner.Models.Category)">
+        <member name="M:BudgetPlanner.Controllers.CategoryController.EditCategory(BudgetPlanner.Models.Category)">
             <summary>
             Edit a Category
             </summary>
@@ -614,13 +614,13 @@
             <returns></returns>
             
         </member>
-        <member name="M:BudgetPlanner.Controllers.HouseholdController.Get">
+        <member name="M:BudgetPlanner.Controllers.HouseholdController.Get(System.Int32)">
             <summary>
             Get household using householdId
             </summary>
             <returns></returns>
         </member>
-        <member name="M:BudgetPlanner.Controllers.HouseholdController.UsersInHousehold">
+        <member name="M:BudgetPlanner.Controllers.HouseholdController.UsersInHousehold(System.Int32)">
             <summary>
             Get all users in household
             </summary>
@@ -646,7 +646,7 @@
         </member>
         <member name="M:BudgetPlanner.Controllers.TransactionController.AllTransactions(System.Int32)">
             <summary>
-            Get all Transactions in an Account
+            Get all Transactions by AccountID
             </summary>
             <param name="Id"></param>
             <returns></returns>

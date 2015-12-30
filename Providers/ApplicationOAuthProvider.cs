@@ -104,7 +104,7 @@ namespace BudgetPlanner.Providers
                 { "firstName", user.FirstName ?? "" },
                 { "lastName", user.LastName ?? "" },
                 { "email", user.Email },
-                { "household", user.Household.Name },
+                { "householdId", user.HouseHoldId.ToString() },
                 { "roles", JsonConvert.SerializeObject( manager.GetRoles(user.Id) )}
             };
             return new AuthenticationProperties(data);

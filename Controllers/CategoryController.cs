@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace BudgetPlanner.Controllers
 {
+    // [Authorize]
     public class CategoryController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -19,11 +20,11 @@ namespace BudgetPlanner.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("All")]
-        public IEnumerable<Category> AllCategory(string name )
+        public IEnumerable<Category> AllCategory(int Id )
         {
-            var cResult = db.Database.SqlQuery<Category>("EXEC GetCategoryByHouseholdName @householdName",
-                new SqlParameter("householdName", name)
-                );
+
+            var cResult = db.Database.SqlQuery<Category>("EXEC GetCategoryByHouseholdId @householdId",
+                new SqlParameter("householdId", Id)).ToList();
             return cResult;
         }
 
@@ -39,8 +40,9 @@ namespace BudgetPlanner.Controllers
         {
             var cResult = db.Database.SqlQuery<Category>("EXEC GetCategoryById @categoryId",
                 new SqlParameter("categoryId", Id)
-                );
-            return cResult.FirstAsync().Result;
+                ).ToList();
+
+            return cResult.First();
         }
 
         /// <summary>
@@ -49,14 +51,13 @@ namespace BudgetPlanner.Controllers
         /// <param name="t"></param>
         [HttpPost]
         [ActionName("Create")]
-        public void CreateTransaction(Category c)
+        public void CreateCategory(Category c)
         {
-            var tResult = db.Database.SqlQuery<Category>("EXEC CreateCategory @name, @householdName, @expenseTF",
+            var tResult = db.Database.SqlQuery<int>("EXEC CreateCategory @name, @householdId, @expenseTF",
 
                 new SqlParameter("name", c.Name),
-                new SqlParameter("householdName", c.HouseholdName),
-                new SqlParameter("expenseTF", c.ExpenseTF)
-                );
+                new SqlParameter("householdId", c.HouseholdId),
+                new SqlParameter("expenseTF", c.ExpenseTF)).First();
 
         }
 
@@ -66,7 +67,7 @@ namespace BudgetPlanner.Controllers
         /// <param name="t"></param>
         [HttpPost]
         [ActionName("Edit")]
-        public void EditTransaction(Category c)
+        public void EditCategory(Category c)
         {
             var tResult = db.Database.SqlQuery<Category>("EXEC EditCategory @name, @expenseTF, @categoryId",
 

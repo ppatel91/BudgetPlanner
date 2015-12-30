@@ -10,20 +10,41 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <!-- Bootstrap -->
-    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="Content/bootstrap.min.css" rel="stylesheet">-->
     <link href="Content/Site.css" rel="stylesheet" />
     <!-- Fonts  -->
-    <link href="Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
     <!-- CSS Animate -->
-    <link href="Content/animate.css" rel="stylesheet" />
+    <link href="AdminTemplate/Admincss/animate.min.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
     <!-- Feature detection -->
-    <script src="Scripts/modernizr-2.6.2.js"></script>
+    <script src="Scripts/modernizr-2.8.3.js"></script>
+
+
+    <link href="/AdminTemplate/Admincss/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/animate.min.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/bootstrap.min.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/custom.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/normalize.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Adminjs/sidebar/component.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/nprogress.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/icheck/flat/_all.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/icheck/flat/green.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/progressbar/bootstrap-progressbar-3.3.0.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/select/select2.min.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/switchery/switchery.min.css" rel="stylesheet" />
+    <link href="/AdminTemplate/Admincss/maps/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
+    <link href="Content/trNgGrid.min.css" rel="stylesheet" />
 </head>
-<body>
+<body style="background-image: url('../../Content/Background.jpg'); ">
+
+
 
     <div ng-app="app">
         <div class="container" ng-controller="menuCtrl">
-            <nav class="navbar navbar-inverse navbar-fixed-top">
+            <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,21 +53,27 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
+
                     <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li ng-if="authentication.isAuth">
+                                <a ui-sref="dashboard">Dashboard</a>
+                            </li>
+                            <li ng-if="authentication.isAuth">
+                                <a ui-sref="account">Account</a>
+                            </li>
+                            <li ng-if="authentication.isAuth">
+                                <a ui-sref="budget">Manage Budget</a>
+                            </li>
+                            <li ng-if="authentication.isAuth">
+                                <a ui-sref="household">Household</a>
+                            </li>
+
+                        </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li dropdown ng-if="authentication.isAuth" class="dropdown profile">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="meta">
-                                        <span class="avatar" ng-if="authentication.username === 'ANIVRA'">
-                                            <span class="avatar">
-                                                <img src="Images/avatar1_me.png" class="img-circle" width="30" height="30">
-                                            </span>
-                                        </span>
-                                        <span class="avatar" ng-if="authentication.username !== 'ANIVRA'">
-                                            <span class="avatar">
-                                                <img src="Images/avatar0.png" class="img-circle" width="30" height="30">
-                                            </span>
-                                        </span>
                                         <span class="dropdown-toggle text" dropdown-toggle>{{authentication.userName}}</span>
                                         <span class="caret"></span>
                                     </span>
@@ -117,12 +144,16 @@
                                     </li>
                                 </ul>
                             </li>
+
                         </ul>
                     </div>
                 </div>
             </nav>
+            <!--VIEW-->
+            <div class="row" style="padding-top:50px">
 
-            <div ui-view></div>
+                <div ui-view></div>
+            </div>
         </div>
 
     </div>
@@ -131,20 +162,103 @@
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-ui-router.min.js"></script>
     <script src="Scripts/angular-local-storage.min.js"></script>
-    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>    
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
 
     <script src="NgApps/app.js"></script>
     <script src="NgApps/Services/authSvc.js"></script>
     <script src="NgApps/Services/authIntercepterSvc.js"></script>
 
+    <script src="NgApps/Controllers/menuCtrl.js"></script>
     <script src="NgApps/Controllers/homeCtrl.js"></script>
     <script src="NgApps/Controllers/loginCtrl.js"></script>
     <script src="NgApps/Controllers/registerCtrl.js"></script>
-    <script src="NgApps/Controllers/menuCtrl.js"></script>
+    <script src="NgApps/Controllers/householdCtrl.js"></script>
+    <script src="NgApps/Controllers/dashboardCtrl.js"></script>
+    <script src="NgApps/Controllers/accountCtrl.js"></script>
+    <script src="NgApps/Controllers/transactionCtrl.js"></script>
+    <script src="NgApps/Controllers/budgetCtrl.js"></script>
+    <script src="NgApps/Controllers/categoryCtrl.js"></script>
+    <script src="NgApps/Controllers/budgetItemCtrl.js"></script>
+
+    <script src="Content/trNgGrid.min.js"></script>
+
+    <script src="AdminTemplate/Adminjs/jquery.min.js"></script>
+    <!--<script src="Scripts/jquery-2.1.4.js"></script>-->
+    <script src="/AdminTemplate/Adminjs/chartjs/chart.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/bootstrap.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/custom.js"></script>
+    <script src="/AdminTemplate/Adminjs/moment.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/textarea/autosize.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/easypie/jquery.easypiechart.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/sidebar/modernizr.custom.js"></script>
+    <script src="/AdminTemplate/Adminjs/sidebar/sidebarEffects.js"></script>
+    <script src="/AdminTemplate/Adminjs/sidebar/classie.js"></script>
+    <script src="/AdminTemplate/Adminjs/icheck/icheck.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/easypie/jquery.easypiechart.min.js"></script>
+    <script src="/AdminTemplate/Adminjs/nprogress.js"></script>
+
+    <!--data tables-->
+    <script src="/AdminTemplate/Adminjs/datatables/js/jquery.dataTables.js"></script>
+    <script src="/AdminTemplate/Adminjs/datatables/js/jquery.js"></script>
+    <link href="/AdminTemplate/Admincss/datatables/css/jquery.dataTables_themeroller.css" rel="stylesheet" />
 
 
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
+    <script>
+        //$(document).ready(function () {
+        //    $('input.tableflat').iCheck({
+        //        checkboxClass: 'icheckbox_flat-green',
+        //        radioClass: 'iradio_flat-green'
+        //    });
+        //});
+
+        //var asInitVals = new Array();
+        //$(document).ready(function () {
+        //    var oTable = $('#example').dataTable({
+        //        "oLanguage": {
+        //            "sSearch": "Search all columns:"
+        //        },
+        //        "aoColumnDefs": [
+        //            {
+        //                'bSortable': false,
+        //                'aTargets': [0]
+        //            } //disables sorting for column one
+        //        ],
+        //        'iDisplayLength': 12,
+        //        "sPaginationType": "full_numbers",
+        //        "dom": 'T<"clear">lfrtip',
+        //        "tableTools": {
+        //            "sSwfPath": "<?php echo base_url('assets2/js/Datatables/tools/swf/copy_csv_xls_pdf.swf'); ?>"
+        //        }
+        //    });
+        //    $("tfoot input").keyup(function () {
+        //        /* Filter on the column based on the index of this element's parent <th> */
+        //        oTable.fnFilter(this.value, $("tfoot th").index($(this).parent()));
+        //    });
+        //    $("tfoot input").each(function (i) {
+        //        asInitVals[i] = this.value;
+        //    });
+        //    $("tfoot input").focus(function () {
+        //        if (this.className == "search_init") {
+        //            this.className = "";
+        //            this.value = "";
+        //        }
+        //    });
+        //    $("tfoot input").blur(function (i) {
+        //        if (this.value == "") {
+        //            this.className = "search_init";
+        //            this.value = asInitVals[$("tfoot input").index(this)];
+        //        }
+        //    });
+        //});
+    </script>
+
+    <script>
+        function myFunction() {
+            document.getElementById("myForm").reset();
+        }
+
+    </script>
 
 </body>
 </html>

@@ -9,7 +9,8 @@ using System.Web.Http;
 
 namespace BudgetPlanner.Controllers
 {
-    public class AccountingController : ApiController
+   // [Authorize]
+    public class AccountsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         /// <summary>
@@ -20,13 +21,13 @@ namespace BudgetPlanner.Controllers
         [ActionName("All")]
         public IEnumerable<Account> Get()
         {
-            //get an instance of the household controller so we can get the household Id
-            var h = new HouseholdController();
-            //get the household Id
-            var householdId = h.GetHouseholdByUserId();
+            string username = Request.Headers.GetValues("Username").First();
+            string household = Request.Headers.GetValues("Household").First();
+            int householdId = Int32.Parse(household);
+
             //get a list of all accounts for the household with the supplied Id
             var accountResult = db.Database.SqlQuery<Account>("EXEC GetAccountInformation @householdId", 
-                new SqlParameter("householdId", householdId));
+                new SqlParameter("householdId", householdId)).ToList();
             //return list of accounts
             return accountResult; 
         }
@@ -42,9 +43,10 @@ namespace BudgetPlanner.Controllers
         {
             //get account that matches the supplied ID
             var accountResult = db.Database.SqlQuery<Account>("EXEC GetAccountsByAccountId @accountId", 
-                new SqlParameter("accountId", id));
+                new SqlParameter("accountId", id)).ToList();
             //return the account
-            return accountResult.FirstAsync().Result;
+            var r = accountResult.First();
+            return r;
         }
 
 
@@ -56,11 +58,12 @@ namespace BudgetPlanner.Controllers
         [ActionName("Create")]
         public void CreateAccount(Account a)
         {
-            var aResult = db.Database.SqlQuery<Account>("EXEC CreateAccount @name, @balance, @householdId",
+
+            var aResult = db.Database.SqlQuery<int>("EXEC CreateAccount @name, @balance, @householdId",
                 new SqlParameter("name", a.Name),
                 new SqlParameter("balance", a.Balance),
                 new SqlParameter("householdId", a.HouseholdId)
-                );
+                ).First();
 
         }
 
@@ -69,7 +72,7 @@ namespace BudgetPlanner.Controllers
         /// </summary>
         /// <param name="a"></param>
         [HttpGet]
-        [ActionName("Create")]
+        [ActionName("Edit")]
         public void EditAccount(Account a)
         {
             var aResult = db.Database.SqlQuery<Account>("EXEC EditAccount @name, @balance, @accountId",
@@ -104,5 +107,6 @@ namespace BudgetPlanner.Controllers
                             new SqlParameter("accountId", a.Id)
                             );
         }
+
     }
 }

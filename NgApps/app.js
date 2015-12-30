@@ -8,25 +8,36 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     //
     // Now set up the states
     $stateProvider
-      .state('login', {
-          url: "/login",
-          templateUrl: "/NgApps/Templates/login.html",
-          controller: "loginCtrl as login"
-      })
-      .state('home', {
-          url: "/home",
-          templateUrl: "/NgApps/Templates/home.html",
-          controller: "homeCtrl as home"
-      })
-      .state('register', {
-          url: "/register",
-          templateUrl: "/NgApps/Templates/register.html",
-          controller: "registerCtrl as register"
-      })
-      .state('default', {
-          url: "/",
-          templateUrl: "",
-      });
+        .state('login', {
+            url: "/login",
+            templateUrl: "/NgApps/Templates/login.html",
+            controller: "loginCtrl as login"
+        })
+        .state('household', {
+            url: "/household",
+            templateUrl: "/NgApps/Templates/household.html",
+            controller: "householdCtrl as household"
+        })
+        .state('register', {
+            url: "/register",
+            templateUrl: "/NgApps/Templates/register.html",
+            controller: "registerCtrl as register"
+        })
+        .state('account', {
+            url: "/account",
+            templateUrl: "/NgApps/Templates/account.html",
+            controller: "accountCtrl as account"
+        })
+        .state('budget', {
+            url: "/budget",
+            templateUrl: "/NgApps/Templates/budget.html",
+            controller: "budgetCtrl as budget"
+        })
+    .state('dashboard', {
+        url: "/dashboard",
+        templateUrl: "/NgApps/Templates/dashboard.html",
+        controller: "dashboardCtrl as dashboard"
+    });
 });
 
 var serviceBase = 'http://localhost:50676/';

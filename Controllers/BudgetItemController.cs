@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace BudgetPlanner.Controllers
 {
+   // [Authorize]
     public class BudgetItemController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,9 +23,12 @@ namespace BudgetPlanner.Controllers
         [ActionName("All")]
         public IEnumerable<BudgetItem> AllBudgetItems(int Id)
         {
+            string username = Request.Headers.GetValues("Username").First();
+            string household = Request.Headers.GetValues("Household").First();
+            int householdId = Int32.Parse(household);
+
             var tResult = db.Database.SqlQuery<BudgetItem>("EXEC GetBudgetItemByBudgetId @budgetId",
-                new SqlParameter("budgetId", Id)
-                );
+                new SqlParameter("budgetId", Id)).ToList();
             return tResult;
         }
 

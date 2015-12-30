@@ -1,6 +1,6 @@
 ﻿'use strict';
-angular.module('app')
-    .factory('authSvc', ['$http', '$q', 'localStorageService', 'ngAuthSettings', function ($http, $q, localStorageService, ngAuthSettings) {
+
+    app.factory('authSvc', ['$http', '$q', 'localStorageService', 'ngAuthSettings', function ($http, $q, localStorageService, ngAuthSettings) {
 
         var serviceBase = ngAuthSettings.apiServiceBaseUri;
         var authServiceFactory = {};
@@ -36,15 +36,15 @@ angular.module('app')
                 _authentication.lastName = response.lastName;
 			    _authentication.email = response.email;
                 _authentication.roles = response.roles;
-                _authentication.household = response.household;
-                _authentication.refreshToken = response.refresh_token
+                _authentication.householdId = response.householdId;
+                _authentication.refreshToken = response.refresh_token;
 
                 localStorageService.set('authorizationData', _authentication);
 
                 deferred.resolve(response);
 
             }).error(function (err, status) {
-                _logOut();
+                _logout();
                 deferred.reject(err);
             });
 
@@ -63,7 +63,7 @@ angular.module('app')
 		    _authentication.email = "";
             _authentication.token = "";
             _authentication.roles = [];
-            _authentication.household = "";
+            _authentication.householdId = "";
             _authentication.refreshToken = "";
 
         };
@@ -79,7 +79,7 @@ angular.module('app')
 			    _authentication.email = authData.email;
                 _authentication.token = authData.token;
                 _authentication.roles = authData.roles;
-                _authentication.household = authData.household;
+                _authentication.householdId = authData.householdId;
                 _authentication.refreshToken = authData.refreshToken;
             }
 
@@ -100,7 +100,7 @@ angular.module('app')
 
                     localStorageService.set('authorizationData', {
                         token: response.access_token, userName: response.userName, email: response.email, refreshToken: response.refresh_token,
-                        firstName: response.firstName, lastName: response.lastName, roles: response.roles, household: response.household});
+                        firstName: response.firstName, lastName: response.lastName, roles: response.roles, householdId: response.householdId});
 
 
                     deferred.resolve(response);
@@ -114,6 +114,8 @@ angular.module('app')
             return deferred.promise;
         };
 
+
+
         authServiceFactory.register = _saveRegistration;
         authServiceFactory.login = _login;
         authServiceFactory.logout = _logout;
@@ -124,22 +126,3 @@ angular.module('app')
 
         return authServiceFactory;
     }])
-    .factory('homeSvc', ['$http', 'ngAuthSettings', function ($http, ngAuthSettings) {
-
-        var serviceBase = ngAuthSettings.apiServiceBaseUri;
-        var homeServiceFactory = {};
-
-        var getValues = function () {
-            return $http.get(serviceBase + '/api/values').then(function (response) {
-                return response.data;
-            });
-        };
-
-        var getValue = function (id) {
-            return $http.get(serviceBase + '/api/values/' + id).then(function (response) {
-                return response.data;
-            });
-        };
-
-        return homeServiceFactory;
-    }]);

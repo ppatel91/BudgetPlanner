@@ -9,10 +9,18 @@ using System.Web.Http;
 
 namespace BudgetPlanner.Controllers
 {
+  //  [Authorize]
     public class HouseholdController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+
+        public string GetHouseholdById (int id)
+        {
+            return db.Database.SqlQuery<string>("EXEC GetHouseholdNameById @id",
+                new SqlParameter("id", id)).FirstAsync().Result;
+        }
 
         /// <summary>
         /// Get Household using the Username
@@ -23,10 +31,10 @@ namespace BudgetPlanner.Controllers
         [ActionName("HouseholdByUserName")]
         public int GetHouseholdByUserId()
         {
-            var householdId = db.Database.SqlQuery<int>("EXEC GetHouseholdIdByUsername @name",
+            return db.Database.SqlQuery<int>("EXEC GetHouseholdIdByUsername @name",
                 new SqlParameter("name", User.Identity.Name)).FirstAsync().Result;
             //return the account
-            return householdId;
+            
         }
 
         /// <summary>
@@ -34,11 +42,11 @@ namespace BudgetPlanner.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ActionName("HouseholdByID")]
-        public Household Get()
+        [ActionName("HouseholdNameById")]
+        public string Get(int id)
         {
-            var householdResult = db.Database.SqlQuery<Household>("EXEC GetHouseholdById @householdId",
-                new SqlParameter("householdId", GetHouseholdByUserId()));
+            var householdResult = db.Database.SqlQuery<string>("EXEC GetHouseholdNameById @householdId",
+                new SqlParameter("householdId", id));
             return householdResult.FirstAsync().Result;
         }
 
@@ -48,10 +56,10 @@ namespace BudgetPlanner.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("UsersInHousehold")]
-        public IEnumerable<ApplicationUser> UsersInHousehold()
+        public IEnumerable<string> UsersInHousehold(int id)
         {
-            var userResult = db.Database.SqlQuery<ApplicationUser>("Exec GetUsersInHousehold @householdId",
-                new SqlParameter("householdId", GetHouseholdByUserId())
+            var userResult = db.Database.SqlQuery<string>("Exec GetUsersInHousehold @householdId",
+                new SqlParameter("householdId", id)
                 );
             return userResult;
         }
@@ -77,9 +85,9 @@ namespace BudgetPlanner.Controllers
         [ActionName("Join")]
         public void JoinHousehold(ApplicationUser h)
         {
-            var hResult = db.Database.SqlQuery<ApplicationUser>("EXEC JoinHousehold @householdId, @userId",
+            var hResult = db.Database.SqlQuery<ApplicationUser>("EXEC JoinHousehold @householdId, @username",
                 new SqlParameter("householdId", h.HouseHoldId),
-                new SqlParameter("userId", h.Id)
+                new SqlParameter("username", h.UserName)
                 );
         }
 

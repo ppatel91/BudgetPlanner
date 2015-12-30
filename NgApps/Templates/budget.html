@@ -1,0 +1,296 @@
+﻿
+<div class="container">
+    <div class="row" style="">
+
+        <div class="row">
+            <!--Create Budget-->
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".cBudget-modal-sm">Add A New Budget</button> <br />
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div>
+                        <div class="">
+                            <br />
+                            <div class="modal fade cBudget-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel2">Add Budget To Household</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" ng-submit="budget.createBudget()">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Month</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Enter Month of Budget" ng-model="budget.bmodel.Month">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Year</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Enter Year of Budget" ng-model="budget.bmodel.Year">
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-6">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="this.form.reset()">Close</button>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <button type="submit" class="btn btn-success">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--Create Budget Item-->
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".cBudgetItem-modal-sm">Add A New Budget Item</button> <br />
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div>
+                        <div class="">
+                            <br />
+                            <div class="modal fade cBudgetItem-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel2">Add Budget Item</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" ng-submit="budget.createBudgetItem()">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Amount</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Enter Amount of Budget Item" ng-model="budget.imodel.Month">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Enter Name of Item" ng-model="budget.imodel.Name">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Choose Category" ng-model="budget.imodel.CategoryId">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Budget</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Choose Budget" ng-model="budget.imodel.BudgetId">
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-6">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="this.form.reset()">Close</button>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <button type="submit" class="btn btn-success">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Create Category-->
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".cCategory-modal-sm">Add A New Cateogory</button> <br />
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div>
+                        <div class="">
+                            <br />
+                            <div class="modal fade cCategory-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel2">Add Category To Household</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" ng-submit="budget.createCategory()">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Enter Category Name" ng-model="budget.cmodel.Name">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Expense/Income</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Enter 1 for Expense, 0 for Income" ng-model="budget.cmodel.ExpenseTF">
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-6">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="this.form.reset()">Close</button>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <button type="submit" class="btn btn-success">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <!------------Categories in Household===================================-->
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>List of Categories In Household</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Expense/Income</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="category in budget.categorys">
+                                <tr ng-click="budget.getCategorys()">
+                                    <td>{{category.Name}}</td>
+                                    <td>{{category.ExpenseTF}}</td>
+                                    <td>
+                                        <button data-hover="tooltip" title="Edit" style="height:25px; width:35px" class="fa fa-pencil" data-toggle="modal" data-target=".cBudget-modal-sm"></button>
+                                        <button data-hover="tooltip" title="Details" style="height:25px; width:35px" class="fa fa-list"></button>
+                                        <button data-hover="tooltip" title="Delete" style="height:25px; width:35px"  class="fa fa-trash"></button>
+
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <!------------Budgets In Household----==================================-->
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>List of Budgets In Household</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Year</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="budget in budget.budgetBhId">
+                                <tr ng-click="budget.getBudgets()">
+                                    <td>{{budget.Month}}</td>
+                                    <td>{{budget.Year}}</td>
+                                    <td>
+                                        <button data-hover="tooltip" title="Edit" style="height:25px; width:35px" class="fa fa-pencil" data-toggle="modal" data-target=".eBudget-modal-sm"></button>
+                                        <button data-hover="tooltip" title="Edit" style="height:25px; width:35px" class="fa fa-list"></button>
+
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!------------BudgetItems in Household==================================-->
+
+
+        </div>
+
+        
+
+    </div>
+</div>
+
+<!------------------------------------------------EDIT BUDGET MODAL-------------------------------------------->
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div>
+        <div class="">
+            <br />
+            <div class="modal fade eBudget-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel2">Edit Budget </h4><small>Delete Previous Information and Enter in New One</small>
+                        </div>
+                        <div class="modal-body">
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" ng-submit="budget.editBudget()">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Month</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" placeholder="Enter Month of Budget" ng-model="budget.bmodel.Month">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Year</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" placeholder="Enter Year of Budget" ng-model="budget.bmodel.Year">
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="this.form.reset()">Close</button>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

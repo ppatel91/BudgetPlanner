@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace BudgetPlanner.Controllers
 {
+    //[Authorize]
     public class BudgetController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,13 +23,29 @@ namespace BudgetPlanner.Controllers
         [ActionName("All")]
         public IEnumerable<Budget> Get()
         {
-            //get an instance of the household controller so we can get the household Id
-            var h = new HouseholdController();
-            //get the household Id
-            var householdId = h.GetHouseholdByUserId();
+            string username = Request.Headers.GetValues("Username").First();
+            string household = Request.Headers.GetValues("Household").First();
+            int householdId = Int32.Parse(household);
+
             //get a list of all accounts for the household with the supplied Id
             var budgetResult = db.Database.SqlQuery<Budget>("EXEC GetHouseholdBudget @householdId",
-                new SqlParameter("householdId", householdId));
+                new SqlParameter("householdId", householdId)).ToList();
+            //return list of accounts
+            return budgetResult;
+        }
+
+
+        [HttpGet]
+        [ActionName("AllByHouseholdId")]
+        public IEnumerable<Budget> Get2()
+        {
+            string username = Request.Headers.GetValues("Username").First();
+            string household = Request.Headers.GetValues("Household").First();
+            int householdId = Int32.Parse(household);
+
+            //get a list of all accounts for the household with the supplied Id
+            var budgetResult = db.Database.SqlQuery<Budget>("EXEC GetBudgetByHouseholdId  @householdId",
+                new SqlParameter("householdId", householdId)).ToList();
             //return list of accounts
             return budgetResult;
         }
@@ -60,7 +77,7 @@ namespace BudgetPlanner.Controllers
                 new SqlParameter("month", b.Month),
                 new SqlParameter("year",b.Year),
                 new SqlParameter("householdId", b.HouseholdId)
-                );
+                ).First();
         }
 
         /// <summary>

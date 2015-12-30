@@ -16,6 +16,8 @@ namespace BudgetPlanner.Models
         public string LastName { get; set; }
         public int? HouseHoldId { get; set; }
 
+        public virtual Household Household  {get; set;}
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -24,7 +26,6 @@ namespace BudgetPlanner.Models
             return userIdentity;
         }
 
-        public virtual Household Household  {get; set;}
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
